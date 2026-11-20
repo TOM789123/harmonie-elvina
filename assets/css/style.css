@@ -1,0 +1,378 @@
+/* ==========================================================================
+   Harmonie Elvina — feuille de style
+   Copie du site Wix harmoniefeval.wixsite.com/harmonie-elvina-2
+   Bureau : colonne centrale de 980 px (comme Wix) + bandes « arbre » de 108 px
+   de part et d'autre. Mobile : une colonne, bandes masquées.
+   ========================================================================== */
+
+/* --- Polices auto-hébergées (licence SIL OFL) ------------------------------
+   Équivalences avec les polices du site Wix :
+   Cookie → Cookie · Cormorant Garamond → Cormorant Garamond
+   Didot italique (police Wix) → Bodoni Moda italique
+   Playfair Display → Playfair Display · Futura (police Wix) → Jost        */
+@font-face { font-family: "Cookie"; src: url("../fonts/cookie-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url("../fonts/bodoni-moda-latin-700-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("../fonts/playfair-display-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("../fonts/playfair-display-latin-700-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../fonts/jost-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../fonts/jost-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+
+:root {
+  --fond-clair: #b9b2a8;   /* accueil, séances */
+  --fond-fonce: #a79a90;   /* autres pages */
+  --champ: #e7dfd8;        /* champs du formulaire */
+  --texte: #000;
+  --largeur: 980px;
+  --bande-largeur: 108px;
+
+  --cookie: "Cookie", "Brush Script MT", cursive;
+  --cormorant: "Cormorant Garamond", Garamond, Georgia, serif;
+  --didot: "Bodoni Moda", Didot, "Bodoni MT", Georgia, serif;
+  --playfair: "Playfair Display", Georgia, serif;
+  --futura: "Jost", Futura, "Century Gothic", sans-serif;
+}
+
+/* --- Base ----------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--fond-fonce);
+  color: var(--texte);
+  font-family: var(--cookie);
+  font-size: 18px;
+  line-height: 1.15;
+}
+body.fond-clair { background: var(--fond-clair); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+a:hover, a:focus-visible { text-decoration: underline; }
+:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+p, h1, h2, h3, ul, address, blockquote { margin: 0; }
+h1, h2, h3 { font-size: inherit; }
+b, strong { font-weight: 700; }
+.u { text-decoration: underline; }
+.centre { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+/* Ligne vide (les paragraphes vides du site Wix) */
+.saut { margin-top: 1.2em; margin-top: 1lh; }
+
+.lien-evitement {
+  position: absolute; left: -9999px; top: 8px; z-index: 10;
+  padding: 8px 14px; background: #fff; font: 500 16px var(--futura);
+}
+.lien-evitement:focus { left: 8px; }
+
+/* --- Zones pleine largeur + colonne centrale -------------------------------- */
+.zone { position: relative; }
+.zone__inner { position: relative; max-width: var(--largeur); margin: 0 auto; }
+
+/* Bandes latérales (photo d'arbre) collées à la colonne de 980 px */
+.bande {
+  position: absolute; top: 0; bottom: 0;
+  width: var(--bande-largeur);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.bande--g { right: 100%; }
+.bande--d { left: 100%; }
+
+/* --- Menu ------------------------------------------------------------------- */
+/* Fond #b9b2a8 comme sur Wix : invisible sur l'accueil, bandeau clair sur les pages au fond plus foncé */
+.menu { margin-top: 15px; background: var(--fond-clair); }
+.menu--interieur { margin-top: 0; }
+.menu__liste { display: flex; justify-content: space-between; list-style: none; margin: 0; padding: 0; }
+.menu__liste a {
+  display: block;
+  padding: 10px clamp(8px, 1.5vw, 20px);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  font-family: var(--cormorant);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: .9px;
+  white-space: nowrap;
+}
+.menu__liste a:hover, .menu__liste a:focus-visible { border-color: rgba(255, 255, 255, .55); text-decoration: none; }
+.menu__item.est-actif > a { border-top-color: #fff; border-bottom-color: #fff; }
+.menu__bouton { display: none; }
+
+/* --- Pied de page ----------------------------------------------------------- */
+.pied { padding: 17px 0 24px; }
+.pied__liens { list-style: none; margin: 0; padding: 0 0 0 24px; }
+.pied__liens li + li { margin-top: 8px; }
+.pied__liens a {
+  font-family: var(--futura);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23.4px;
+  letter-spacing: -.18px;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Accueil
+   ========================================================================== */
+.entete { background: var(--fond-clair); }
+.entete > .zone__inner { height: 379px; }
+.entete .bande { bottom: 7px; }
+.entete__logo { width: 268px; height: 268px; margin: 22px auto 0; object-fit: cover; }
+.entete__statut {
+  width: 92px; margin: 9px auto 0;
+  font-family: var(--cormorant); font-weight: 600; font-size: 16px; line-height: 14.4px;
+  letter-spacing: -.8px; text-align: center;
+}
+.entete__bienvenue { margin-top: 8px; font-weight: 700; font-size: 30px; line-height: 39px; letter-spacing: -.3px; text-align: center; }
+
+.accueil__banniere { width: 100%; height: 259px; object-fit: cover; }
+.accueil { padding-bottom: 13px; }
+.accueil__portrait { width: 119px; height: 141px; margin: 10px auto 0; object-fit: cover; }
+.accueil__intro { margin-top: 10px; font-size: 22px; line-height: 28.6px; letter-spacing: -.22px; text-align: center; }
+.accueil__ornement { width: 68px; height: 43px; margin: 9px auto 0; }
+.accueil__devise { margin-top: 16px; font-size: 20px; line-height: 24px; letter-spacing: .8px; text-align: center; }
+.accueil__coordonnees { position: relative; margin-top: 17px; }
+.accueil__adresse { font-style: normal; font-size: 22px; line-height: 28.6px; letter-spacing: -.22px; text-align: center; }
+.reseaux { position: absolute; top: 46px; left: 137px; display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+.reseaux img { width: 61px; height: 61px; }
+.reseaux--contact { top: 26px; left: 25px; gap: 20px; }   /* à hauteur du titre CONTACT, comme sur Wix */
+.reseaux--duo { position: static; justify-content: center; margin-top: 27px; gap: 21px; }
+
+/* ==========================================================================
+   Pages intérieures
+   ========================================================================== */
+.page { position: relative; padding: 26px 0 60px; }
+.titre-page {
+  font-family: var(--didot); font-style: italic; font-weight: 700;
+  font-size: 30px; line-height: 1.2; letter-spacing: 2.4px; text-align: center;
+}
+.photo-bas { width: 153px; height: 87px; margin: 30px auto 0; object-fit: cover; }
+.texte-long { margin-top: 12px; padding-left: 5px; font-size: 18px; line-height: 20.7px; }
+.texte-long .inter { font-weight: 700; font-size: 22px; line-height: 25.3px; }
+.texte-long .inter--aere { line-height: 30.8px; }
+.texte-long .aere { line-height: 25.2px; }
+
+/* --- Séances (page d'aiguillage) -------------------------------------------- */
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center; }
+.trio--hub { margin-top: 41px; }
+.trio__visuel { display: flex; align-items: center; justify-content: center; height: 120px; }
+.trio__photo { width: 85px; height: 120px; object-fit: cover; }
+.trio__titre {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 99px; margin-top: 16px;
+  font-family: var(--playfair); font-style: italic; font-weight: 700;
+  font-size: 24px; line-height: 32px; letter-spacing: 1.92px;
+}
+.seances__nettoyage { display: block; width: 256px; margin: 44px auto 0; }
+.seances__nettoyage img { width: 256px; height: 256px; background: #fff; } /* PNG transparent posé sur fond blanc, comme sur Wix */
+
+.autres { position: relative; margin-top: 54px; text-align: center; }
+.autres__icone { width: 57px; height: 57px; margin: 0 auto; }
+.autres__texte { margin-top: 8px; font-size: 18px; line-height: 25.2px; }
+.autres__seance { font-family: var(--playfair); font-weight: 700; }
+.deco { position: absolute; }
+.deco--ornement { top: 13px; width: 64px; height: 34px; }
+.deco--feuilles { top: 59px; width: 102px; height: 99px; }
+.deco--g1 { left: 10.9%; }
+.deco--d1 { left: 83.1%; }
+.deco--g2 { left: 3%; }
+.deco--d2 { left: 86.6%; transform: scaleX(-1); } /* branche en miroir */
+
+.seances__entreprises {
+  margin-top: 37px;
+  font-family: var(--cormorant); font-weight: 600; font-size: 20px; line-height: 1.2;
+  letter-spacing: -1px; text-align: center;
+}
+.seances__deplacement { margin-top: 11px; font-style: italic; font-size: 16px; line-height: 18.4px; text-align: center; }
+.seances__avertissement { margin-top: 16px; font-style: italic; font-weight: 700; font-size: 18px; line-height: 23.4px; letter-spacing: .18px; text-align: center; }
+.seances__avertissement span { font-size: 20px; }
+
+/* --- Séances détaillées : guidance / soin / méditation ----------------------- */
+.trio--details { grid-template-columns: repeat(3, minmax(0, 310px)); column-gap: 15px; justify-content: center; margin-top: 18px; }
+.trio--details .trio__visuel { height: 77px; }
+.trio--details .trio__titre { min-height: 66px; margin-top: 0; }
+.trio__texte { margin-top: 19px; font-size: 20px; line-height: 22px; text-align: left; }
+.trio__texte--serre { line-height: 20px; }
+.details__avertissement { margin-top: 24px; font-weight: 700; font-size: 20px; line-height: 26px; letter-spacing: -.2px; text-align: center; }
+
+/* --- Accompagnement énergétique personnalisé -------------------------------- */
+.titre-page--etroit { max-width: 460px; margin-left: auto; margin-right: auto; }
+.accompagnement__photo { width: 138px; height: 188px; margin: 14px auto 0; object-fit: cover; }
+.tarif { font-size: 18px; }
+.tarif b { font-size: 23px; }
+
+/* --- Nettoyage énergétique de lieux ----------------------------------------- */
+.nettoyage__logo { width: 205px; height: 205px; margin: 12px auto 0; background: #fff; }
+.nettoyage__intro { margin: 23px 45px 0 46px; font-size: 20px; line-height: 26px; letter-spacing: -.2px; }
+.nettoyage__texte { margin-top: 14px; line-height: 25.2px; }
+/* Bloc de contact final en deux colonnes (Harmonie / Floriane) */
+.nettoyage__contact { margin-top: 25px; }
+.nettoyage__contact-intro { font-size: 22px; line-height: 23.4px; letter-spacing: -.18px; text-align: center; }
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 30px; }
+.duo__col { display: flex; flex-direction: column; align-items: center; }
+.duo__col + .duo__col { padding-left: 44px; } /* colonne de droite centrée vers 757 px, comme sur Wix */
+.duo__nom { min-height: 25px; font-weight: 700; font-size: 26px; line-height: 23.4px; letter-spacing: -.18px; text-align: center; }
+.duo__nom span { font-size: 22px; }
+.duo__coord { min-height: 92.4px; margin-top: 25px; font-size: 22px; line-height: 30.8px; }
+
+/* --- Animaux ---------------------------------------------------------------- */
+.animaux__sous-titre { margin-top: 2px; font-size: 20px; line-height: 26px; letter-spacing: -.2px; text-align: center; }
+.animaux__photo { width: 219px; height: 146px; margin: 32px auto 0; object-fit: cover; }
+.animaux__texte { margin: 30px 47px 0 40px; font-size: 20px; line-height: 26px; letter-spacing: -.2px; }
+.animaux__texte .dernier { line-height: 22px; }
+
+/* --- Témoignages ------------------------------------------------------------ */
+.page-temoignages .titre-page { margin-top: 30px; }
+.temoignages { list-style: none; margin: 60px 0 0; padding: 0 0 0 8px; font-size: 18px; line-height: 21.6px; letter-spacing: .18px; }
+.temoignages li + li { margin-top: 6px; }
+.temoignages__deco { width: 82px; height: 97px; margin: 29px auto 0; }
+.temoignages__fin { margin-top: 8px; font-style: italic; font-size: 18px; line-height: 23.4px; letter-spacing: .18px; text-align: center; overflow-wrap: anywhere; }
+.temoignages__merci { width: 100px; height: 75px; margin: 26px auto 0; }
+
+/* --- Références bibliographiques ------------------------------------------- */
+.references__icone { width: 63px; height: 44px; margin: 12px auto 0; }
+.references__intro { margin-top: 13px; font-style: italic; font-size: 22px; line-height: 28.6px; letter-spacing: .22px; text-align: center; }
+.references__liste { list-style: none; margin: 20px 0 0; padding: 0; font-size: 18px; line-height: 20.7px; letter-spacing: .18px; text-align: center; }
+.separateur { width: 165px; height: 53px; margin: 0 auto; object-fit: contain; }
+.references__annonce { margin-top: 14px; font-weight: 700; font-size: 22px; line-height: 28.6px; letter-spacing: .22px; text-align: center; }
+.citation { margin: 14px 0 0; font-style: italic; font-size: 18px; line-height: 20.7px; text-align: center; }
+.a-completer {
+  max-width: 640px; margin: 0 auto; padding: 16px 20px;
+  border: 1px dashed rgba(0, 0, 0, .55);
+  font-family: var(--futura); font-style: normal; font-size: 15px; line-height: 1.5;
+}
+.references__deco { width: 82px; height: 54px; margin: 18px auto 0; }
+
+/* --- Contact ---------------------------------------------------------------- */
+.contact__icone { width: 93px; height: 91px; margin: 19px auto 0; }
+.contact__intro { margin-top: 9px; font-style: italic; font-size: 18px; line-height: 28.6px; letter-spacing: .18px; text-align: center; }
+.contact__sous-titre { margin-top: 24px; font-size: 30px; line-height: 1.2; letter-spacing: .3px; text-align: center; }
+.coordonnees {
+  display: grid; grid-template-columns: minmax(0, 403px) minmax(0, 382px);
+  justify-content: space-between; align-items: center;
+  margin-top: 23px; padding: 0 27px 0 22px;
+  font-size: 28px; line-height: 36.4px; letter-spacing: .28px; text-align: center;
+}
+.coordonnees address { font-style: normal; }
+.coordonnees__tel { font-size: 35px; }
+.contact__separateur { width: 101px; height: 34px; margin: 37px auto 0; object-fit: contain; }
+.contact__titre-form { font-size: 28px; line-height: 35px; letter-spacing: .28px; text-align: center; scroll-margin-top: 20px; }
+
+.formulaire { width: 503px; max-width: 100%; margin: 24px auto 0; font-family: var(--futura); }
+.champ { margin-bottom: 23px; }
+.champ label { display: block; margin-bottom: 8px; color: #fff; font-size: 14px; line-height: 20px; }
+.champ input,
+.champ textarea {
+  display: block; width: 100%; height: 42px; margin: 0; padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, .6); border-radius: 0;
+  background: var(--champ); color: #000;
+  font-family: var(--futura); font-size: 16px;
+}
+.champ textarea { height: 92px; resize: vertical; }
+.champ input:focus, .champ textarea:focus { outline: 2px solid #000; outline-offset: 0; }
+.formulaire__envoyer {
+  display: block; width: 100%; height: 41px; margin-top: 21px;
+  border: 0; border-radius: 0; background: var(--champ); color: #000;
+  font-family: var(--futura); font-size: 16px; cursor: pointer;
+}
+.formulaire__envoyer:hover, .formulaire__envoyer:focus-visible { background: #fff; }
+.champ-piege { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.alerte { margin: 0 0 20px; padding: 12px 16px; background: rgba(255, 255, 255, .8); font-size: 15px; line-height: 1.5; }
+.alerte--ok { border-left: 4px solid #00692d; }
+.alerte--erreur { border-left: 4px solid #a3261b; }
+.alerte ul { margin: 6px 0 0; padding-left: 18px; }
+.contact__separateur-bas { width: 120px; height: 29px; margin: 4px auto 0; object-fit: contain; }
+.contact__fin { max-width: 520px; margin: 39px auto 0; font-size: 18px; line-height: 23.4px; letter-spacing: .18px; text-align: center; }
+.contact__banniere { width: 915px; height: 150px; margin: 16px auto 0; object-fit: cover; }
+
+/* --- Pages légales (vides sur le site Wix) ---------------------------------- */
+.legale { display: flex; flex-direction: column; min-height: 840px; }
+.legale .photo-bas { margin-top: auto; }
+
+/* ==========================================================================
+   Adaptation aux écrans plus étroits (le site Wix n'avait qu'une version bureau
+   et une version mobile séparée)
+   ========================================================================== */
+@media (max-width: 1219px) {
+  .bande { display: none; }
+}
+
+@media (max-width: 1019px) {
+  .zone__inner { padding-left: 20px; padding-right: 20px; }
+  .entete > .zone__inner { height: auto; padding-bottom: 14px; }
+}
+
+@media (max-width: 899px) {
+  .menu__bouton {
+    display: flex; align-items: center; gap: 12px;
+    margin: 0 auto; padding: 8px 18px;
+    border: 1px solid #fff; background: transparent; color: #000; cursor: pointer;
+    font-family: var(--cormorant); font-weight: 600; font-size: 18px; letter-spacing: .9px;
+  }
+  .menu__burger, .menu__burger::before, .menu__burger::after {
+    display: block; width: 20px; height: 2px; background: #000;
+  }
+  .menu__burger { position: relative; }
+  .menu__burger::before, .menu__burger::after { content: ""; position: absolute; left: 0; }
+  .menu__burger::before { top: -6px; }
+  .menu__burger::after { top: 6px; }
+  .menu__liste { display: none; flex-direction: column; align-items: center; padding: 8px 0 4px; }
+  .menu__liste.est-ouvert, .no-js .menu__liste { display: flex; }
+  .menu { padding: 6px 0; }
+  .menu__liste a { padding: 8px 12px; white-space: normal; text-align: center; }
+
+  .accueil__banniere { height: clamp(150px, 30vw, 259px); }
+  .reseaux { position: static; justify-content: center; margin-top: 16px; }
+
+  .deco { display: none; }
+}
+
+@media (max-width: 767px) {
+  .trio, .trio--details { grid-template-columns: minmax(0, 480px); justify-content: center; row-gap: 32px; }
+  .trio__titre { min-height: 0; margin-top: 10px; }
+  .trio--details .trio__titre { min-height: 0; }
+  .nettoyage__intro, .animaux__texte { margin-left: 0; margin-right: 0; }
+  .coordonnees { grid-template-columns: minmax(0, 1fr); row-gap: 14px; padding: 0; font-size: 24px; line-height: 1.35; }
+  .coordonnees__tel { font-size: 28px; }
+  .contact__banniere { height: 120px; }
+  .duo { grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .duo__col + .duo__col { padding-left: 0; }
+  .duo__coord { min-height: 0; }
+  .legale { min-height: 420px; }
+}
+
+@media (max-width: 599px) {
+  .entete__logo { width: 200px; height: 200px; }
+  .entete__bienvenue { font-size: 26px; line-height: 1.3; }
+  .titre-page { font-size: 26px; letter-spacing: 1.6px; }
+  .trio__titre { font-size: 21px; line-height: 28px; letter-spacing: 1.2px; }
+  .page { padding-top: 18px; }
+}
+
+/* ==========================================================================
+   Page Séances (guidance / soin / méditation) — version mobile reprise
+   du site Wix mobile (mise à jour du 20/11/2026)
+   ========================================================================== */
+.seul-mobile { display: none; }
+
+@media (max-width: 767px) {
+  .seul-bureau { display: none; }
+  .seul-mobile { display: inline; }
+
+  .page-seances .titre-page { font-size: 23px; }
+  .page-seances .trio--details { margin-top: 30px; row-gap: 30px; }
+  .page-seances .trio--details .trio__visuel { height: auto; }
+  .page-seances .trio--details .trio__visuel img { width: 90px; height: auto; }
+  .page-seances .trio--details .trio__titre { margin-top: 10px; font-size: 20px; line-height: 28px; letter-spacing: 1.6px; }
+  .page-seances .trio--details .trio__titre--soin { font-size: 24px; line-height: 32px; }
+  .page-seances .trio__texte { margin-top: 10px; }
+  .page-seances .trio__texte--serre { padding: 0 12px 0 24px; font-size: 18px; line-height: 18px; }
+  .page-seances .trio__texte--soin { font-size: 17px; line-height: 18.7px; }
+  .page-seances .trio__texte--meditation { font-size: 20px; line-height: 22px; }
+  .page-seances .details__avertissement { margin-top: 20px; font-size: 17px; line-height: 22.1px; letter-spacing: 0; }
+}

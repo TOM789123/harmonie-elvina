@@ -1,0 +1,7 @@
+# Harmonie Elvina — configuration Apache
+
+# Site sur une adresse provisoire : demander aux moteurs de recherche de ne pas l'indexer.
+# À SUPPRIMER une fois le site sur son nom de domaine définitif.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>

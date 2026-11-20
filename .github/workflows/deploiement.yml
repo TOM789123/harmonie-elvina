@@ -1,0 +1,33 @@
+# Déploiement automatique vers O2switch à chaque push sur main.
+# Secrets à créer dans GitHub (Settings > Secrets and variables > Actions) :
+#   FTP_SERVEUR, FTP_UTILISATEUR, FTP_MOT_DE_PASSE
+name: Déploiement O2switch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: deploiement-o2switch
+
+jobs:
+  ftp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Envoyer sur O2switch (FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVEUR }}
+          username: ${{ secrets.FTP_UTILISATEUR }}
+          password: ${{ secrets.FTP_MOT_DE_PASSE }}
+          protocol: ftps
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            outils/**
+            LISEZMOI.md
