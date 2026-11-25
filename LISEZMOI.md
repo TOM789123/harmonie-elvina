@@ -66,7 +66,7 @@ La présentation d'Harmonie sur l'accueil reprend sa biographie de la page Netto
 - **Photos** : celles du site Wix sont en petite taille (1 400 px au plus). Des originaux ou de nouvelles photos de sa forêt
   rendraient l'accueil plus net sur grand écran (`sources/images.py` régénère toutes les tailles).
 - **Extrait de « Demain les chats »** (page Lectures) : emplacement prévu, texte à reprendre du site actuel.
-- **Pages légales** : vides sur le site actuel ; mentions légales et politique de confidentialité nécessaires.
+- **Pages légales** : rédigées (mentions légales, confidentialité + cookies, CGV) ; champs surlignés « à compléter » : identité, statut, SIRET, TVA, délai d’annulation, médiateur de la consommation, prestataire du site.
 
 ## Mise en ligne de la refonte (après validation)
 

@@ -830,7 +830,13 @@ b, strong { font-weight: 600; }
 .alerte--erreur { background: #F6E3D8; color: #6E3519; }
 
 /* Pages légales */
-.legale { max-width: 44rem; }
+.legale { max-width: 46rem; }
+.legale h2 { font-size: var(--t-xl); margin: clamp(2.25rem, 4vw, 3rem) 0 .9rem; }
+.legale h2:first-child { margin-top: 0; }
+.legale h3 { font-size: var(--t-l); margin: 1.75rem 0 .6rem; }
+.legale .liste-feuille { margin-bottom: 1em; }
+.legale code { font-size: .9em; }
+.a-remplir { padding: .05em .35em; border-radius: .3em; background: #F3E3CF; color: var(--ecorce); font-family: var(--sans); font-size: .9em; }
 
 /* ---------- Bandeau rendez-vous ---------- */
 .rdv { padding-block: clamp(3.5rem, 7vw, 5.5rem); overflow: hidden; }
