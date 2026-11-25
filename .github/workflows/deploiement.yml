@@ -34,6 +34,7 @@ jobs:
           UTILISATEUR="$(printf '%s' "$FTP_UTILISATEUR" | tr -d '[:space:]')"
           LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
           export LFTP_PASSWORD
+          for essai in 1 2 3 4 5; do getent hosts "$SERVEUR" > /dev/null && break; echo "Résolution DNS de $essai/5 échouée, nouvel essai dans 10 s"; sleep 10; done
           getent hosts "$SERVEUR" > /dev/null && echo "Serveur FTP : nom résolu" || { echo "Serveur FTP introuvable (vérifier le secret FTP_SERVEUR) : ${#SERVEUR} caractères, $(printf '%s' "$SERVEUR" | tr -cd '.' | wc -c) point(s), se termine par « $(printf '%s' "$SERVEUR" | awk -F. '{print $NF}') »"; exit 1; }
           lftp -c "
             set ftp:ssl-force true;
