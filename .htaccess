@@ -1,7 +1,17 @@
 # Harmonie Elvina — configuration Apache
 
-# Site sur une adresse provisoire : demander aux moteurs de recherche de ne pas l'indexer.
-# À SUPPRIMER une fois le site sur son nom de domaine définitif.
+# Site pas encore officiel (refonte en cours de validation) : demander aux moteurs de ne pas l'indexer.
+# À SUPPRIMER à la mise en ligne de la refonte.
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+# Adresse unique : https://harmonie-elvina.fr (http, www et ancienne adresse provisoire redirigés).
+# Le dossier .well-known reste accessible pour le renouvellement du certificat Let's Encrypt.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} !^harmonie-elvina\.fr$ [NC]
+  RewriteRule ^ https://harmonie-elvina.fr%{REQUEST_URI} [R=301,L]
 </IfModule>
