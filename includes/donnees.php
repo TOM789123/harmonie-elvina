@@ -83,13 +83,6 @@ $AUTRES = [
         'url'   => 'nettoyage-energetique-lieux.php',
         'lien'  => 'Le nettoyage de lieux',
     ],
-    'defunt' => [
-        'titre' => 'Communication défunt',
-        'icone' => 'defunt',
-        'texte' => 'Me contacter pour plus de renseignements.',
-        'url'   => 'contact.php',
-        'lien'  => 'Me contacter',
-    ],
 ];
 
 /* Témoignages (page « Vos témoignages » du site actuel, textes non modifiés). « vedette » : affichés sur l'accueil. */

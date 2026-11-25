@@ -483,7 +483,7 @@ b, strong { font-weight: 600; }
 .aussi__notes { display: grid; gap: 1.25rem; margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: 2rem; border-top: 1px solid var(--trait-sombre); font-family: var(--sans); font-size: var(--t-s); color: var(--sur-sombre-doux); }
 .aussi__notes p { margin: 0; max-width: 34rem; }
 @media (min-width: 52em) {
-  .aussi__liste { grid-template-columns: repeat(3, 1fr); gap: clamp(2rem, 4vw, 4rem); }
+  .aussi__liste { grid-template-columns: repeat(2, minmax(0, 26rem)); gap: clamp(2rem, 6vw, 6rem); }
   .aussi__notes { grid-template-columns: 1fr 1fr; gap: 3rem; }
 }
 

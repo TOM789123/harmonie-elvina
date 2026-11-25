@@ -1,4 +1,4 @@
-<?php /* Bloc « Je propose aussi » (animaux, nettoyage de lieux, communication défunt). $aussiTitre : titre facultatif. */ ?>
+<?php /* Bloc « Je propose aussi » (animaux, nettoyage de lieux). $aussiTitre : titre facultatif. */ ?>
 <section class="section aussi sombre grain" aria-labelledby="aussi-titre">
   <div class="conteneur">
     <div class="titre-section">

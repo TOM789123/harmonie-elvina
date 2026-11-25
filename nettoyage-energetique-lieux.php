@@ -73,7 +73,6 @@ $sommaire = '<ul class="sommaire">'
       <p>Le nettoyage énergétique consiste à purifier, harmoniser et rééquilibrer les énergies d’un lieu. Nous nous connectons à l’âme du lieu et aux différentes présences afin de libérer ce qui doit l’être et restaurer une ambiance plus sereine. Ce travail permet aux habitants de se réapproprier pleinement leur espace de vie.</p>
       <p>Le nettoyage peut inclure :</p>
       <ul class="liste-feuille">
-        <li>communication avec les défunts</li>
         <li>libération des énergies lourdes</li>
         <li>nettoyage émotionnel du lieu</li>
         <li>harmonisation globale des énergies</li>
