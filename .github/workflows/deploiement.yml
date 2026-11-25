@@ -30,10 +30,11 @@ jobs:
           # Nettoie les secrets (espaces, retour à la ligne, préfixe ftp://, slash final)
           SERVEUR="$(printf '%s' "$FTP_SERVEUR" | tr -d '[:space:]')"
           SERVEUR="${SERVEUR#ftp://}"; SERVEUR="${SERVEUR#ftps://}"; SERVEUR="${SERVEUR%/}"
+          SERVEUR="${SERVEUR##*@}"; SERVEUR="${SERVEUR%:*}"
           UTILISATEUR="$(printf '%s' "$FTP_UTILISATEUR" | tr -d '[:space:]')"
           LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
           export LFTP_PASSWORD
-          getent hosts "$SERVEUR" > /dev/null && echo "Serveur FTP : nom résolu" || { echo "Serveur FTP introuvable (vérifier le secret FTP_SERVEUR)"; exit 1; }
+          getent hosts "$SERVEUR" > /dev/null && echo "Serveur FTP : nom résolu" || { echo "Serveur FTP introuvable (vérifier le secret FTP_SERVEUR) : ${#SERVEUR} caractères, $(printf '%s' "$SERVEUR" | tr -cd '.' | wc -c) point(s), se termine par « $(printf '%s' "$SERVEUR" | awk -F. '{print $NF}') »"; exit 1; }
           lftp -c "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
