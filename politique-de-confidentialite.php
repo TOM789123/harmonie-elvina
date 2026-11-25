@@ -33,7 +33,7 @@ require __DIR__ . '/includes/legal.php';
     </ul>
     <p>Vos données ne sont jamais vendues ni utilisées à des fins publicitaires.</p>
 
-    <h2>Cookies</h2>
+    <h2 id="cookies">Cookies</h2>
     <p>Le site n’utilise aucun cookie publicitaire ni outil de mesure d’audience, et n’intègre aucun contenu tiers (vidéo, carte, bouton de partage). Les polices de caractères sont hébergées sur le site lui-même.</p>
     <p>Un seul cookie technique est déposé sur la page Contact : <code>PHPSESSID</code>, qui sécurise le formulaire contre les envois automatisés. Il est strictement nécessaire au fonctionnement du formulaire, ne permet pas de vous suivre et s’efface à la fermeture du navigateur. Il est donc dispensé de consentement.</p>
     <p>Les liens vers Facebook et Instagram sont de simples liens : aucun cookie de ces réseaux n’est déposé tant que vous ne cliquez pas dessus.</p>

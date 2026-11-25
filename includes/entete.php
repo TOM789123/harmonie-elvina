@@ -38,6 +38,8 @@ $menuActif = $page['menu'] !== '' ? $page['menu'] : $page['cle'];
 <link rel="preload" href="assets/fonts/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/alegreya-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css?v=<?= e((string) @filemtime(__DIR__ . '/../assets/css/style.css')) ?>">
+<link rel="stylesheet" href="assets/css/cookies.css?v=<?= e((string) @filemtime(__DIR__ . '/../assets/css/cookies.css')) ?>">
+<script src="assets/js/cookies.js?v=<?= e((string) @filemtime(__DIR__ . '/../assets/js/cookies.js')) ?>" defer></script>
 <script src="assets/js/site.js?v=<?= e((string) @filemtime(__DIR__ . '/../assets/js/site.js')) ?>" defer></script>
 </head>
 <body class="page-<?= e($page['cle']) ?>">

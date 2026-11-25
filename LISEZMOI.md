@@ -17,6 +17,7 @@ mise en page entièrement refaite. Le site actuel (branche `main`) n'est pas mod
 - **Couleurs** : sous-bois `#1C2A21`, mousse `#3D5743`, fougère `#9DB47F`, lichen `#DFE5D3`, brume `#F1F3EC`, lumière (beige / marron clair) `#D4B896`, écorce `#7A5C46`.
 - **Polices** (OFL, auto-hébergées) : Alegreya (titres et textes), Alegreya Sans (menus, boutons, infos pratiques).
 - **Motif** : coins « feuille » (deux coins opposés arrondis) sur les photos, cartes et boutons.
+- **Cookies** : bouton « bonhomme cookie » repris du site La vie et ses trésors cachés (`assets/js/cookies.js`, `assets/css/cookies.css`), aux couleurs du site ; simple note d’information (un seul cookie technique, pas de consentement requis).
 - **Pictogrammes** dessinés pour le site (lanterne, mains, lotus, spirale, chat, maison-feuille, plume),
   sprite généré dans `includes/sprite.php` ; les mains et l'arbre de vie sont vectorisés depuis les icônes d'origine.
 
