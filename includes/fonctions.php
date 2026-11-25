@@ -7,32 +7,132 @@ function e($valeur): string
     return htmlspecialchars((string) $valeur, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-/**
- * Chemin d'un média : le fichier local s'il a été récupéré (assets/img/...),
- * sinon la source sur le CDN Wix (repli tant que outils/recuperer-medias.php n'a pas tourné).
- */
-function img(string $fichier): string
+/** Attributs HTML à partir d'un tableau ['class' => '...', 'loading' => 'lazy', ...]. */
+function attributs(array $attrs): string
 {
-    global $MEDIAS;
-
-    if (is_file(__DIR__ . '/../assets/img/' . $fichier)) {
-        return 'assets/img/' . $fichier;
+    $html = '';
+    foreach ($attrs as $nom => $valeur) {
+        if ($valeur === false || $valeur === null) {
+            continue;
+        }
+        $html .= $valeur === true ? ' ' . e($nom) : ' ' . e($nom) . '="' . e($valeur) . '"';
     }
-    if (isset($MEDIAS[$fichier])) {
-        return is_array($MEDIAS[$fichier]) ? $MEDIAS[$fichier]['url'] : $MEDIAS[$fichier];
-    }
-    return 'assets/img/' . $fichier;
+    return $html;
 }
 
 /**
- * Les deux bandes latérales (photo d'arbre) placées de part et d'autre de la colonne.
- * Style en ligne sur l'élément : l'URL relative est résolue depuis la page, quel que soit le navigateur.
+ * Image responsive : <picture> avec les variantes WebP (assets/img/{nom}-{largeur}.webp)
+ * et un JPEG (ou PNG) de repli. Pour une image sans variantes : assets/img/{nom}.webp + .png.
  */
-function bandes(string $fichier): string
+function photo(string $nom, string $alt, string $sizes = '100vw', array $attrs = []): string
 {
-    $style = "background-image: url('" . e(img($fichier)) . "')";
-    return '<div class="bande bande--g" aria-hidden="true" style="' . $style . '"></div>'
-         . '<div class="bande bande--d" aria-hidden="true" style="' . $style . '"></div>';
+    $dossier = __DIR__ . '/../assets/img/';
+    $webp = glob($dossier . $nom . '-[0-9]*.webp') ?: [];
+    usort($webp, static fn ($a, $b) => (int) preg_replace('/\D/', '', basename($a)) <=> (int) preg_replace('/\D/', '', basename($b)));
+    $repli = (glob($dossier . $nom . '-[0-9]*.jpg') ?: [])[0] ?? null;
+
+    if ($webp && $repli) {
+        $srcset = implode(', ', array_map(static function ($f) use ($nom) {
+            preg_match('/-(\d+)\.webp$/', $f, $m);
+            return 'assets/img/' . basename($f) . ' ' . $m[1] . 'w';
+        }, $webp));
+        $src = 'assets/img/' . basename($repli);
+    } else {
+        $srcset = 'assets/img/' . $nom . '.webp';
+        $repli = $dossier . $nom . '.png';
+        $src = 'assets/img/' . $nom . '.png';
+    }
+    [$largeur, $hauteur] = @getimagesize($repli) ?: [null, null];
+
+    $img = array_merge([
+        'src'      => $src,
+        'alt'      => $alt,
+        'width'    => $largeur,
+        'height'   => $hauteur,
+        'loading'  => 'lazy',
+        'decoding' => 'async',
+    ], $attrs);
+
+    return '<picture><source type="image/webp" srcset="' . e($srcset) . '" sizes="' . e($sizes) . '">'
+         . '<img' . attributs($img) . '></picture>';
+}
+
+/** Pictogramme du sprite (includes/sprite.php). */
+function icone(string $nom, string $classe = ''): string
+{
+    return '<svg class="icone icone--' . e($nom) . ($classe !== '' ? ' ' . e($classe) : '') . '" aria-hidden="true" focusable="false"><use href="#i-' . e($nom) . '"></use></svg>';
+}
+
+/** Date ISO (2024-12-21) en toutes lettres : « décembre 2024 ». */
+function mois_annee(string $iso): string
+{
+    $mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    [$a, $m] = array_map('intval', explode('-', $iso));
+    return $mois[$m - 1] . ' ' . $a;
+}
+
+/** Bloc « en pratique » d'une séance : liste de définitions. */
+function infos_seance(array $infos, string $classe = 'infos'): string
+{
+    $html = '<dl class="' . e($classe) . '">';
+    foreach ($infos as $terme => $valeur) {
+        $html .= '<div><dt>' . e($terme) . '</dt><dd>' . e($valeur) . '</dd></div>';
+    }
+    return $html . '</dl>';
+}
+
+/**
+ * Faisceaux de lumière et poussières en suspension (en-têtes sombres).
+ * $poussieres : nombre de particules (0 pour un faisceau fixe).
+ */
+function lumiere(int $poussieres = 0): string
+{
+    $html = '<div class="lumiere" aria-hidden="true"><span class="rayon rayon--large"></span><span class="rayon rayon--fin"></span>';
+    if ($poussieres > 0) {
+        $html .= '<span class="poussieres">';
+        $graine = 7;
+        $alea = static function () use (&$graine): float {
+            $graine = ($graine * 16807) % 2147483647;
+            return $graine / 2147483647;
+        };
+        for ($i = 0; $i < $poussieres; $i++) {
+            $style = sprintf(
+                '--x:%.1f%%;--y:%.1f%%;--t:%.1fpx;--d:%.1fs;--r:-%.1fs;--dx:%.0fpx',
+                44 + $alea() * 46,
+                18 + $alea() * 70,
+                4 + $alea() * 4,
+                13 + $alea() * 14,
+                $alea() * 20,
+                -30 + $alea() * 60
+            );
+            $html .= '<i style="' . $style . '"></i>';
+        }
+        $html .= '</span>';
+    }
+    return $html . '</div>';
+}
+
+/**
+ * En-tête sombre des pages intérieures.
+ * $visuel : HTML d'une image (photo(), logo…) affichée à droite, facultatif.
+ * $parent : ['url' => ..., 'label' => ...] pour un lien de retour vers la page parente, facultatif.
+ */
+function hero_page(string $titre, string $intro = '', string $visuel = '', array $parent = []): string
+{
+    $html = '<section class="hero-page sombre grain' . ($visuel !== '' ? ' hero-page--visuel' : '') . '">' . lumiere(0)
+          . '<div class="conteneur hero-page__grille"><div class="hero-page__texte">';
+    if ($parent) {
+        $html .= '<p class="hero-page__parent"><a href="' . e($parent['url']) . '">' . e($parent['label']) . '</a></p>';
+    }
+    $html .= '<h1>' . e($titre) . '</h1>';
+    if ($intro !== '') {
+        $html .= '<p class="hero-page__intro">' . e($intro) . '</p>';
+    }
+    $html .= '</div>';
+    if ($visuel !== '') {
+        $html .= '<div class="hero-page__visuel">' . $visuel . '</div>';
+    }
+    return $html . '</div></section>';
 }
 
 /** Encode un en-tête d'e-mail en UTF-8 (sujet, nom d'expéditeur). */

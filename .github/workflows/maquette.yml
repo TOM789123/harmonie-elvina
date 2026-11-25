@@ -1,0 +1,49 @@
+# Maquette de la refonte : chaque push sur la branche « refonte » publie le site
+# dans le dossier maquette/ du serveur (lien de prévisualisation pour la cliente).
+# Le site principal (branche main, racine du serveur) n'est pas touché.
+name: Maquette refonte
+
+on:
+  push:
+    branches: [refonte]
+  workflow_dispatch:
+
+concurrency: deploiement-o2switch
+
+jobs:
+  ftp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Envoyer dans maquette/ (FTPS)
+        env:
+          FTP_SERVEUR: ${{ secrets.FTP_SERVEUR }}
+          FTP_UTILISATEUR: ${{ secrets.FTP_UTILISATEUR }}
+          LFTP_PASSWORD: ${{ secrets.FTP_MOT_DE_PASSE }}
+        run: |
+          SERVEUR="$(printf '%s' "$FTP_SERVEUR" | tr -d '[:space:]')"
+          SERVEUR="${SERVEUR#ftp://}"; SERVEUR="${SERVEUR#ftps://}"; SERVEUR="${SERVEUR%/}"
+          SERVEUR="${SERVEUR##*@}"; SERVEUR="${SERVEUR%:*}"
+          UTILISATEUR="$(printf '%s' "$FTP_UTILISATEUR" | tr -d '[:space:]')"
+          LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+          export LFTP_PASSWORD
+          lftp -c "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate no;
+            set ftp:passive-mode true;
+            set net:timeout 30;
+            set net:max-retries 3;
+            set net:reconnect-interval-base 5;
+            open -u '$UTILISATEUR' --env-password '$SERVEUR';
+            mkdir -p -f maquette;
+            mirror --reverse --verbose --parallel=3 \
+              -X .git/ -X .github/ -X .gitignore -X outils/ -X LISEZMOI.md -X sources/ \
+              ./ maquette/;
+            cls -ld maquette maquette/assets
+          "

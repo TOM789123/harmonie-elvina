@@ -1,7 +1,24 @@
-# Harmonie Elvina — configuration Apache
+# Harmonie Elvina — maquette de la refonte (dossier /maquette/)
 
-# Site sur une adresse provisoire : demander aux moteurs de recherche de ne pas l'indexer.
-# À SUPPRIMER une fois le site sur son nom de domaine définitif.
+# Ne pas indexer la maquette dans les moteurs de recherche.
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+# Cache navigateur des ressources statiques
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
 </IfModule>

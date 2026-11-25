@@ -1,48 +1,105 @@
 <?php
-/* Accueil — Wix : /harmonie-elvina-2 */
-$page = ['cle' => 'accueil', 'titre' => 'Accueil', 'fond' => 'clair', 'gabarit' => 'accueil'];
+/* Accueil */
+$page = [
+    'cle'         => 'accueil',
+    'description' => 'Harmonie Elvina, médium énergéticienne à Saint-Georges-sur-Baulche (Yonne) : guidance, soins énergétiques, méditations connectées, accompagnement personnalisé, au cabinet, à domicile ou à distance.',
+];
 require __DIR__ . '/includes/entete.php';
+
+$vedettes = array_values(array_filter($TEMOIGNAGES, static fn ($t) => !empty($t['vedette'])));
+usort($vedettes, static fn ($a, $b) => strcmp($a['auteur'] === 'Laurianne Mths' ? '0' : '1', $b['auteur'] === 'Laurianne Mths' ? '0' : '1'));
 ?>
-<header class="entete zone">
-  <div class="zone__inner">
-    <?= bandes('arbre-cote.jpg') ?>
-    <img class="entete__logo" src="<?= e(img('logo-harmonie-elvina.png')) ?>" width="268" height="268" alt="Harmonie Elvina – Médium énergéticienne">
-    <h1 class="entete__statut">Site en cours de transformation</h1>
-    <p class="entete__bienvenue">Je vous souhaite la Bienvenue&nbsp;!</p>
+<section class="hero sombre grain">
+  <div class="hero__photo">
+    <?= photo('chemin', 'Un chemin forestier baigné de soleil, entre les arbres', '(max-width: 56em) 100vw, 47vw', ['loading' => 'eager', 'fetchpriority' => 'high']) ?>
   </div>
-</header>
-
-<div class="zone">
-  <div class="zone__inner">
-    <img class="accueil__banniere" src="<?= e(img('chemin-foret.jpg')) ?>" width="980" height="259" alt="">
-<?php require __DIR__ . '/includes/menu.php'; ?>
-    <main id="contenu" class="accueil">
-      <img class="accueil__portrait" src="<?= e(img('portrait-harmonie.jpg')) ?>" width="119" height="141" alt="Portrait d’Harmonie Elvina">
-
-      <div class="accueil__intro">
-        <p>Je propose de t'accompagner grâce à des séances de guidance, de soins énergétiques et de méditations.</p>
-        <p>Je n'ai pas de baguette magique et je tiens à ce que tu sois l'acteur principal de ce que tu souhaites dans ta vie.</p>
-        <p>Pour moi, lorsque l'on désire un changement quel qu'il soit, il est nécessaire de mettre en place des actions concrètes pour y contribuer.</p>
+  <?= lumiere(11) ?>
+  <div class="conteneur hero__contenu">
+    <div class="hero__texte">
+      <p class="hero__salut">Je vous souhaite la bienvenue</p>
+      <h1 class="hero__titre">Aller à la découverte de soi est le plus beau voyage que l’on puisse entreprendre.</h1>
+      <p class="hero__intro">Je propose de t’accompagner grâce à des séances de guidance, de soins énergétiques et de méditations.</p>
+      <div class="hero__actions">
+        <a class="bouton bouton--lumiere" href="contact.php">Prendre rendez-vous</a>
+        <a class="bouton bouton--contour" href="seances.php">Découvrir les séances</a>
       </div>
-
-      <img class="accueil__ornement" src="<?= e(img('deco/laurier.svg')) ?>" width="68" height="43" alt="">
-
-      <p class="accueil__devise">ALLER A LA DECOUVERTE DE SOI EST LE PLUS BEAU VOYAGE QUE L'ON PUISSE ENTREPRENDRE</p>
-
-      <div class="accueil__coordonnees">
-        <address class="accueil__adresse">
-          Harmonie Elvina<br>
-          3 Chemin du Moulin<br>
-          89 000 Saint Georges Sur Baulche<br>
-          <a href="tel:+33659412294">06.59.41.22.94</a><br>
-          <a href="mailto:harmonie.feval@gmail.com">harmonie.feval@gmail.com</a>
-        </address>
-        <ul class="reseaux">
-          <li><a href="<?= e(URL_FACEBOOK) ?>" target="_blank" rel="noopener"><img src="<?= e(img('icone-facebook.png')) ?>" width="61" height="61" alt="Facebook"></a></li>
-          <li><a href="<?= e(URL_INSTAGRAM) ?>" target="_blank" rel="noopener"><img src="<?= e(img('icone-instagram.png')) ?>" width="61" height="61" alt="Instagram"></a></li>
-        </ul>
-      </div>
-    </main>
+      <p class="hero__lieu"><?= icone('lieu') ?>Saint-Georges-sur-Baulche, dans l’Yonne, et à distance</p>
+    </div>
   </div>
-</div>
+</section>
+
+<section class="section presentation" aria-labelledby="presentation-titre">
+  <div class="conteneur presentation__grille">
+    <div class="presentation__visuels">
+      <div class="presentation__tronc"><?= photo('tronc', 'Le tronc d’un grand arbre couvert de lierre', '(max-width: 56em) 80vw, 22rem') ?></div>
+      <div class="presentation__portrait"><?= photo('portrait', 'Harmonie Elvina', '11rem') ?></div>
+    </div>
+    <div class="presentation__texte">
+      <h2 id="presentation-titre">Qui suis-je ?</h2>
+      <p class="chapeau">Médium énergéticienne, mes capacités me permettent de voir, de ressentir, d’entendre et de communiquer avec les mondes subtils : âmes, guides, défunts, animaux, énergies des lieux et objets.</p>
+      <p>Suite à ma rencontre avec Fabienne Casabianca et Sorine Andrée en 2021, j’ai choisi d’approfondir ce chemin qui m’appelait depuis l’enfance.</p>
+      <p>Je n’ai pas de baguette magique et je tiens à ce que tu sois l’acteur principal de ce que tu souhaites dans ta vie. Pour moi, lorsque l’on désire un changement quel qu’il soit, il est nécessaire de mettre en place des actions concrètes pour y contribuer.</p>
+      <?= photo('logo-harmonie-elvina', 'Logo Harmonie Elvina, médium énergéticienne', '9.5rem', ['class' => 'presentation__signature']) ?>
+    </div>
+  </div>
+</section>
+
+<section class="section section--lichen" id="seances" aria-labelledby="seances-titre">
+  <div class="conteneur">
+    <div class="titre-section">
+      <h2 id="seances-titre">Les séances</h2>
+      <p>À mon cabinet de Saint-Georges-sur-Baulche, à domicile ou à distance.</p>
+    </div>
+    <ul class="seances-liste">
+<?php foreach ($SEANCES as $cle => $s): ?>
+      <li class="seance">
+        <?= icone($s['icone']) ?>
+        <h3><a href="<?= e($s['url'] ?? 'seances.php#' . $cle) ?>"><?= e($s['titre']) ?></a></h3>
+        <p><?= e($s['accroche']) ?></p>
+        <?= infos_seance($s['resume']) ?>
+      </li>
+<?php endforeach; ?>
+    </ul>
+    <p class="mention">L’accompagnement que je te propose ne se substitue pas à un avis médical.</p>
+  </div>
+</section>
+
+<section class="section aussi sombre grain" aria-labelledby="aussi-titre">
+  <div class="conteneur">
+    <div class="titre-section">
+      <h2 id="aussi-titre">Je propose aussi</h2>
+    </div>
+    <ul class="aussi__liste">
+<?php foreach ($AUTRES as $a): ?>
+      <li class="aussi__item">
+        <?= icone($a['icone']) ?>
+        <h3><?= e($a['titre']) ?></h3>
+        <p><?= e($a['texte']) ?></p>
+        <a class="lien" href="<?= e($a['url']) ?>"><?= e($a['lien']) ?></a>
+      </li>
+<?php endforeach; ?>
+    </ul>
+    <div class="aussi__notes">
+      <p>Mes prestations sont à présent disponibles pour les entreprises, me contacter pour plus d’informations !</p>
+      <p>Je peux également me déplacer, prévoir des frais supplémentaires (kilomètres + temps de trajet).</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="temoignages-titre">
+  <div class="conteneur">
+    <div class="titre-section">
+      <h2 id="temoignages-titre">Témoignages</h2>
+    </div>
+    <div class="temoignages-grille">
+<?php foreach ($vedettes as $i => $t): ?>
+      <figure class="temoignage<?= $i === 0 ? ' temoignage--grand' : '' ?>">
+        <blockquote><p><?= e($t['texte']) ?></p></blockquote>
+        <figcaption><b><?= e($t['auteur']) ?></b>, <?= e(mois_annee($t['date'])) ?></figcaption>
+      </figure>
+<?php endforeach; ?>
+    </div>
+    <p class="temoignages-suite"><a class="lien" href="temoignages.php">Lire les <?= count($TEMOIGNAGES) ?> témoignages</a></p>
+  </div>
+</section>
 <?php require __DIR__ . '/includes/pied.php'; ?>

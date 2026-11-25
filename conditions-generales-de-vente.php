@@ -1,11 +1,12 @@
 <?php
-/* Conditions générales de vente — Wix : /copie-de-politique-de-confidentialité-1 (page vide sur Wix) */
+/* Conditions générales de vente — page provisoire de la maquette (en cours de refonte) */
 $page = ['cle' => 'cgv', 'titre' => 'Conditions générales de vente'];
 require __DIR__ . '/includes/entete.php';
 ?>
-<div class="legale">
-  <h1 class="titre-page">Condition générales<br>de vente</h1>
-  <!-- À compléter : cette page est vide sur le site Wix. -->
-  <img class="photo-bas" src="<?= e(img('photo-bas-de-page.jpg')) ?>" width="153" height="87" alt="">
-</div>
+<?= hero_page('Conditions générales de vente', '') ?>
+<section class="section">
+  <div class="conteneur">
+    <p class="en-preparation">Cette page est en cours de création dans la nouvelle version du site.</p>
+  </div>
+</section>
 <?php require __DIR__ . '/includes/pied.php'; ?>
