@@ -27,6 +27,13 @@ jobs:
           LFTP_PASSWORD: ${{ secrets.FTP_MOT_DE_PASSE }}
         # Pas de suppression côté serveur (.well-known, cgi-bin… restent intacts).
         run: |
+          # Nettoie les secrets (espaces, retour à la ligne, préfixe ftp://, slash final)
+          SERVEUR="$(printf '%s' "$FTP_SERVEUR" | tr -d '[:space:]')"
+          SERVEUR="${SERVEUR#ftp://}"; SERVEUR="${SERVEUR#ftps://}"; SERVEUR="${SERVEUR%/}"
+          UTILISATEUR="$(printf '%s' "$FTP_UTILISATEUR" | tr -d '[:space:]')"
+          LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+          export LFTP_PASSWORD
+          getent hosts "$SERVEUR" > /dev/null && echo "Serveur FTP : nom résolu" || { echo "Serveur FTP introuvable (vérifier le secret FTP_SERVEUR)"; exit 1; }
           lftp -c "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
@@ -35,7 +42,7 @@ jobs:
             set net:timeout 30;
             set net:max-retries 3;
             set net:reconnect-interval-base 5;
-            open -u $FTP_UTILISATEUR --env-password $FTP_SERVEUR;
+            open -u '$UTILISATEUR' --env-password '$SERVEUR';
             mirror --reverse --verbose --parallel=3 \
               -X .git/ -X .github/ -X .gitignore -X outils/ -X LISEZMOI.md \
               ./ ./
