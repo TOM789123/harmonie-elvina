@@ -32,6 +32,7 @@ jobs:
           UTILISATEUR="$(printf '%s' "$FTP_UTILISATEUR" | tr -d '[:space:]')"
           LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
           export LFTP_PASSWORD
+          for essai in 1 2 3 4 5; do getent hosts "$SERVEUR" > /dev/null && break; echo "Résolution DNS $essai/5 échouée, nouvel essai dans 10 s"; sleep 10; done
           lftp -c "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
