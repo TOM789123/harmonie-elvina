@@ -92,7 +92,8 @@ un fichier retiré du dépôt doit aussi être effacé à la main dans cPanel.
 Lancement manuel possible : onglet Actions → « Déploiement O2switch » → « Run workflow ».
 
 - Compte FTP dédié `deploiement@harmonie.suwe0045.odns.fr`, limité au dossier du site (chemin distant `./`).
-- Secrets GitHub : `FTP_SERVEUR`, `FTP_UTILISATEUR`, `FTP_MOT_DE_PASSE`.
+- Secrets GitHub : `FTP_SERVEUR` (`barriere.o2switch.net`), `FTP_UTILISATEUR`, `FTP_MOT_DE_PASSE`.
+- Dépôt : <https://github.com/TOM789123/harmonie-elvina>.
 - L'action SamKirkland/FTP-Deploy-Action a été abandonnée : le serveur coupait son canal de données FTPS (ECONNRESET).
 
 ## Structure
@@ -104,6 +105,9 @@ outils/     recuperer-medias.php (local uniquement)
 ```
 
 ## Historique
+
+**25/11/2026** — dépôt GitHub `TOM789123/harmonie-elvina` et déploiement automatique vers O2switch ;
+nom de domaine définitif `harmonie-elvina.fr` (OVH) en cours de rattachement (DNS → O2switch).
 
 **20/11/2026 (soir)** — les 11 médias de la bibliothèque Wix sont remplacés par des ornements SVG
 originaux (`assets/img/deco/`) ; mise en ligne provisoire sur http://harmonie.suwe0045.odns.fr/.
