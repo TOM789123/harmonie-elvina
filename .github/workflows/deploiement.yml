@@ -1,4 +1,4 @@
-# Déploiement automatique vers O2switch à chaque push sur main.
+# Déploiement automatique vers O2switch à chaque push sur main (FTPS via lftp).
 # Secrets à créer dans GitHub (Settings > Secrets and variables > Actions) :
 #   FTP_SERVEUR, FTP_UTILISATEUR, FTP_MOT_DE_PASSE
 name: Déploiement O2switch
@@ -17,17 +17,26 @@ jobs:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
+      - name: Installer lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
       - name: Envoyer sur O2switch (FTPS)
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVEUR }}
-          username: ${{ secrets.FTP_UTILISATEUR }}
-          password: ${{ secrets.FTP_MOT_DE_PASSE }}
-          protocol: ftps
-          server-dir: ./
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .github/**
-            outils/**
-            LISEZMOI.md
+        env:
+          FTP_SERVEUR: ${{ secrets.FTP_SERVEUR }}
+          FTP_UTILISATEUR: ${{ secrets.FTP_UTILISATEUR }}
+          LFTP_PASSWORD: ${{ secrets.FTP_MOT_DE_PASSE }}
+        # Pas de suppression côté serveur (.well-known, cgi-bin… restent intacts).
+        run: |
+          lftp -c "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate no;
+            set ftp:passive-mode true;
+            set net:timeout 30;
+            set net:max-retries 3;
+            set net:reconnect-interval-base 5;
+            open -u $FTP_UTILISATEUR --env-password $FTP_SERVEUR;
+            mirror --reverse --verbose --parallel=3 \
+              -X .git/ -X .github/ -X .gitignore -X outils/ -X LISEZMOI.md \
+              ./ ./
+          "

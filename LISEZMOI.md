@@ -86,14 +86,14 @@ Non reprises : `/book-online` (réservation Wix sans aucune prestation) et `/mon
 
 ## Déploiement (GitHub → O2switch)
 
-Chaque push sur `main` envoie le site par FTPS (`.github/workflows/deploiement.yml`, action
-SamKirkland/FTP-Deploy-Action). Seuls les fichiers modifiés partent ; `outils/`, `.github/` et
-ce fichier ne sont pas envoyés. Lancement manuel possible : onglet Actions → « Run workflow ».
+Chaque push sur `main` envoie le site par FTPS (`.github/workflows/deploiement.yml`, `lftp mirror`).
+`outils/`, `.github/`, `.gitignore` et ce fichier ne sont pas envoyés. Rien n'est supprimé sur le serveur :
+un fichier retiré du dépôt doit aussi être effacé à la main dans cPanel.
+Lancement manuel possible : onglet Actions → « Déploiement O2switch » → « Run workflow ».
 
-- Compte FTP dédié dans cPanel, limité au dossier du sous-domaine (le chemin distant est donc `./`).
+- Compte FTP dédié `deploiement@harmonie.suwe0045.odns.fr`, limité au dossier du site (chemin distant `./`).
 - Secrets GitHub : `FTP_SERVEUR`, `FTP_UTILISATEUR`, `FTP_MOT_DE_PASSE`.
-- L'action tient un fichier `.ftp-deploy-sync-state.json` sur le serveur : ne pas le supprimer
-  (sinon le déploiement suivant renvoie tout).
+- L'action SamKirkland/FTP-Deploy-Action a été abandonnée : le serveur coupait son canal de données FTPS (ECONNRESET).
 
 ## Structure
 
