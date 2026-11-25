@@ -33,8 +33,8 @@
       </a>
       <p class="pied__devise">Aller à la découverte de soi est le plus beau voyage que l’on puisse entreprendre.</p>
       <ul class="reseaux">
-        <li><a href="<?= e(URL_FACEBOOK) ?>" target="_blank" rel="noopener"><?= icone('facebook') ?><span class="visuellement-cache">Facebook</span></a></li>
-        <li><a href="<?= e(URL_INSTAGRAM) ?>" target="_blank" rel="noopener"><?= icone('instagram') ?><span class="visuellement-cache">Instagram</span></a></li>
+        <li><a class="reseau reseau--facebook" href="<?= e(URL_FACEBOOK) ?>" target="_blank" rel="noopener"><?= icone('facebook') ?><span class="visuellement-cache">Facebook</span></a></li>
+        <li><a class="reseau reseau--instagram" href="<?= e(URL_INSTAGRAM) ?>" target="_blank" rel="noopener"><?= icone('instagram') ?><span class="visuellement-cache">Instagram</span></a></li>
       </ul>
     </div>
 
@@ -46,15 +46,15 @@
         <li><a href="seances.php#meditation">Méditation connectée</a></li>
         <li><a href="accompagnement-energetique.php">Accompagnement personnalisé</a></li>
         <li><a href="animaux.php">Animaux</a></li>
-        <li><a href="nettoyage-energetique-lieux.php">Nettoyage de lieux</a></li>
+        <li><a href="nettoyage-energetique-lieux.php">Nettoyage énergétique de lieux</a></li>
       </ul>
     </nav>
 
     <nav class="pied__colonne" aria-labelledby="pied-site">
       <h2 class="pied__titre" id="pied-site">À découvrir</h2>
       <ul>
+        <li><a href="references-bibliographiques.php">Références bibliographiques</a></li>
         <li><a href="temoignages.php">Témoignages</a></li>
-        <li><a href="references-bibliographiques.php">Lectures</a></li>
         <li><a href="contact.php">Contact</a></li>
       </ul>
     </nav>

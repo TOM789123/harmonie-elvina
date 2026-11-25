@@ -13,7 +13,7 @@ usort($vedettes, static fn ($a, $b) => strcmp($a['auteur'] === 'Laurianne Mths' 
   <div class="hero__photo">
     <?= photo('chemin', 'Un chemin forestier baigné de soleil, entre les arbres', '(max-width: 56em) 100vw, 47vw', ['loading' => 'eager', 'fetchpriority' => 'high']) ?>
   </div>
-  <?= lumiere(11) ?>
+  <?= lumiere(90) ?>
   <div class="conteneur hero__contenu">
     <div class="hero__texte">
       <p class="hero__salut">Je vous souhaite la bienvenue</p>

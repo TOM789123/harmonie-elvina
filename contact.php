@@ -74,8 +74,8 @@ require __DIR__ . '/includes/entete.php';
         <li><?= icone('horloge') ?><span>Uniquement sur rendez-vous<br>les mercredis et samedis matin</span></li>
       </ul>
       <ul class="reseaux">
-        <li><a href="<?= e(URL_FACEBOOK) ?>" target="_blank" rel="noopener"><?= icone('facebook') ?><span class="visuellement-cache">Facebook</span></a></li>
-        <li><a href="<?= e(URL_INSTAGRAM) ?>" target="_blank" rel="noopener"><?= icone('instagram') ?><span class="visuellement-cache">Instagram</span></a></li>
+        <li><a class="reseau reseau--facebook" href="<?= e(URL_FACEBOOK) ?>" target="_blank" rel="noopener"><?= icone('facebook') ?><span class="visuellement-cache">Facebook</span></a></li>
+        <li><a class="reseau reseau--instagram" href="<?= e(URL_INSTAGRAM) ?>" target="_blank" rel="noopener"><?= icone('instagram') ?><span class="visuellement-cache">Instagram</span></a></li>
       </ul>
       <p class="coordonnees__fin">Si vous souhaitez avoir davantage d’informations, ou si vous avez une question, n’hésitez pas à me contacter !</p>
     </div>

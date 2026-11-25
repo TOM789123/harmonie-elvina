@@ -1,8 +1,8 @@
 <?php
-/* Mes lectures (références bibliographiques) */
+/* Références bibliographiques */
 $page = [
     'cle'         => 'lectures',
-    'titre'       => 'Mes lectures',
+    'titre'       => 'Références bibliographiques',
     'description' => 'Les lectures qui accompagnent le cheminement d’Harmonie Elvina : cristaux, langage du corps, émotions, méditation, voie toltèque…',
 ];
 require __DIR__ . '/includes/entete.php';
@@ -41,7 +41,7 @@ function titres(array $titres): string
     return $cites ? implode(', ', $cites) . ' et ' . $dernier : $dernier;
 }
 ?>
-<?= hero_page('Mes lectures', 'Parce qu’il me tient à cœur de vous partager les lectures qui accompagnent mon cheminement.') ?>
+<?= hero_page('Références bibliographiques', 'Parce qu’il me tient à cœur de vous partager les lectures qui accompagnent mon cheminement.') ?>
 
 <section class="section">
   <div class="conteneur">

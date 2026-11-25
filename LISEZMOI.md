@@ -29,7 +29,7 @@ accompagnement-energetique.php  Accompagnement énergétique personnalisé
 animaux.php                     Communication & soins aux animaux
 nettoyage-energetique-lieux.php Nettoyage énergétique de lieux (avec Flori'Âme)
 temoignages.php                 17 témoignages
-references-bibliographiques.php Mes lectures
+references-bibliographiques.php Références bibliographiques
 contact.php                     Coordonnées + formulaire (jeton, champ piège, délai anti-robots)
 mentions-legales.php, politique-de-confidentialite.php, conditions-generales-de-vente.php  (à compléter)
 includes/  config.php (coordonnées, menu) · donnees.php (séances, témoignages) · fonctions.php
@@ -56,7 +56,7 @@ Textes repris du site actuel. Corrections de fautes de frappe évidentes (à sig
 
 Nouveaux intitulés ajoutés pour structurer les pages (à faire valider) : « Qui suis-je ? », « Les séances »,
 « Je propose aussi », « En pratique », « Durée et tarifs », « À distance, comment ça se passe ? », « Nous contacter »,
-« Prendre rendez-vous », « Mes lectures ».
+« Prendre rendez-vous ».
 La présentation d'Harmonie sur l'accueil reprend sa biographie de la page Nettoyage.
 
 ## À valider avec la cliente

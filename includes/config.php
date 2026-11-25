@@ -41,7 +41,7 @@ define('CONTACT_EXPEDITEUR', 'ne-pas-repondre@' . ($hoteSite !== '' ? $hoteSite 
 $NAV = [
     ['cle' => 'seances',     'label' => 'Séances',            'url' => 'seances.php'],
     ['cle' => 'animaux',     'label' => 'Animaux',            'url' => 'animaux.php'],
-    ['cle' => 'nettoyage',   'label' => 'Nettoyage de lieux', 'url' => 'nettoyage-energetique-lieux.php'],
-    ['cle' => 'temoignages', 'label' => 'Témoignages',        'url' => 'temoignages.php'],
-    ['cle' => 'lectures',    'label' => 'Lectures',           'url' => 'references-bibliographiques.php'],
+    ['cle' => 'nettoyage',   'label' => 'Nettoyage énergétique de lieux', 'url' => 'nettoyage-energetique-lieux.php'],
+    ['cle' => 'lectures',    'label' => 'Références bibliographiques',    'url' => 'references-bibliographiques.php'],
+    ['cle' => 'temoignages', 'label' => 'Témoignages',                    'url' => 'temoignages.php'],
 ];

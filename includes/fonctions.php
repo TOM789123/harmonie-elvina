@@ -98,9 +98,9 @@ function lumiere(int $poussieres = 0): string
         for ($i = 0; $i < $poussieres; $i++) {
             $style = sprintf(
                 '--x:%.1f%%;--y:%.1f%%;--t:%.1fpx;--d:%.1fs;--r:-%.1fs;--dx:%.0fpx',
-                44 + $alea() * 46,
-                18 + $alea() * 70,
-                4 + $alea() * 4,
+                30 + $alea() * 68,
+                8 + $alea() * 88,
+                3 + $alea() * 6,
                 13 + $alea() * 14,
                 $alea() * 20,
                 -30 + $alea() * 60

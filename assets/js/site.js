@@ -47,7 +47,7 @@
       lien.addEventListener('click', fermer);
     });
     if (window.matchMedia) {
-      var large = window.matchMedia('(min-width: 72em)');
+      var large = window.matchMedia('(min-width: 88em)');
       var surChangement = function (e) { if (e.matches) { fermer(); } };
       if (large.addEventListener) { large.addEventListener('change', surChangement); } else if (large.addListener) { large.addListener(surChangement); }
     }
