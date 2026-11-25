@@ -46,5 +46,8 @@ jobs:
             open -u '$UTILISATEUR' --env-password '$SERVEUR';
             mirror --reverse --verbose --parallel=3 \
               -X .git/ -X .github/ -X .gitignore -X outils/ -X LISEZMOI.md \
-              ./ ./
+              ./ ./;
+            chmod 755 assets assets/css assets/fonts assets/img assets/img/deco assets/js includes;
+            cls -ld assets includes;
+            cls -l index.php
           "
