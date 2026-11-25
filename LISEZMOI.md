@@ -1,128 +1,86 @@
-# Harmonie Elvina — copie du site Wix
+# Harmonie Elvina — refonte « Sous la canopée » (branche `refonte`)
 
-Copie en HTML/PHP du site Wix <https://harmoniefeval.wixsite.com/harmonie-elvina-2> :
-mêmes textes, mêmes images, même mise en page sur ordinateur, avec en plus une version mobile.
+Nouvelle version du site : mêmes textes et même ADN (forêt, arbre de vie, lumière),
+mise en page entièrement refaite. Le site actuel (branche `main`) n'est pas modifié.
 
-- Premier scan : 07/11/2026
-- Mise à jour : 15/11/2026 (version Wix publiée le 11/11/2026, voir « Historique » en bas)
+- **Maquette à faire valider** : <http://harmonie.suwe0045.odns.fr/maquette/> (non indexée : en-tête `X-Robots-Tag` du `.htaccess`).
+- Chaque push sur `refonte` publie la maquette dans le dossier `maquette/` du serveur
+  (`.github/workflows/maquette.yml`, mêmes secrets FTP que le site principal).
+- Mise en ligne après validation : fusionner `refonte` dans `main`, puis retirer le `noindex`
+  du `.htaccess` (voir « Mise en ligne de la refonte » plus bas).
 
-## Lancer le site en local (Laragon)
+## Direction artistique
 
-- <http://localhost/harmonie/> fonctionne tout de suite.
-- <http://harmonie.test/> après un « Recharger » d'Apache dans Laragon.
-
-Tous les liens sont relatifs : le site marche dans les deux cas, et à la racine d'un domaine.
-
-## Médias
-
-Les images sont listées dans `includes/medias.php` (fichier local → source Wix).
-Pour les rapatrier dans `assets/img/`, ouvrir une fois :
-<http://localhost/harmonie/outils/recuperer-medias.php> (`?forcer=1` pour tout retélécharger).
-Tant qu'un fichier manque en local, la fonction `img()` affiche l'image depuis le CDN Wix.
-
-Les images sont déjà redimensionnées par le service d'images Wix (les originaux font jusqu'à 4,4 Mo).
-
-**Ornements** : les couronnes, feuillages, séparateurs, livres et la bulle « Merci » sont des SVG
-originaux dessinés pour ce site (`assets/img/deco/`, générés par script, palette du site).
-Ils remplacent les médias de la bibliothèque gratuite de Wix, réservés aux sites Wix.
-Les photos et visuels restants ont été importés par la cliente sur Wix.
-
-## Pages
-
-| Fichier | Page Wix d'origine | Menu |
-|---|---|---|
-| `index.php` | `/` (Accueil) | Accueil |
-| `guidance-soin-meditation.php` | `/guidance` (guidance, soin, méditation) | Séances |
-| `animaux.php` | `/soin-énergétique` (page renommée « Animaux » sur Wix) | Animaux |
-| `nettoyage-energetique-lieux.php` | `/copie-de-accompagnement-énergétique-p` | Nettoyage énergétique de lieux |
-| `references-bibliographiques.php` | `/références-bibliographiques` | Références bibliographiques |
-| `contact.php` | `/contact` | Contact |
-| `seances.php` | `/mes-prestations` (vue d'ensemble des séances) | — (plus dans le menu Wix) |
-| `accompagnement-energetique.php` | `/copie-de-séance-intuitive` | — (lien depuis `seances.php`) |
-| `temoignages.php` | `/vos-témoignages` | — (relié à aucune page sur Wix) |
-| `conditions-generales-de-vente.php` | `/copie-de-politique-de-confidentialité-1` (vide) | pied de page |
-| `politique-de-confidentialite.php` | `/méditation-connectée` (vide) | pied de page |
-| `mentions-legales.php` | `/copie-de-politique-de-confidentialité` (vide) | pied de page |
-
-Non reprises : `/book-online` (réservation Wix sans aucune prestation) et `/mon-univers` (page vide).
-
-## Écarts volontaires avec le site Wix
-
-- **Menu sur toutes les pages** : sur Wix, il est sur l'accueil et les 5 pages du menu,
-  pas sur la vue d'ensemble des séances, l'accompagnement, les témoignages ni les pages légales.
-  **Pied de page sur toutes les pages** : sur Wix, il n'est affiché que sur l'accueil.
-- **Liens corrigés** : sur Wix, « SOIN ENERGETIQUE » de la vue d'ensemble (`/mes-prestations`) mène
-  à la page Animaux, et les liens « Conditions générales de ventes » / « Politique de confidentialité »
-  mènent à la même page. Dans la page Séances détaillée, les titres GUIDANCE / SOIN ENERGETIQUE
-  pointent sur la page elle-même et MEDITATION CONNECTEE sur une page vide : ce sont de simples titres ici.
-- **Formulaire de contact en PHP** (`mail()`), avec jeton, champ piège et délai anti-robots.
-  E-mail et message obligatoires (aucun champ ne l'était sur Wix).
-- **Polices** : Didot et Futura sont des polices sous licence Wix, remplacées par Bodoni Moda et Jost.
-  Toutes les polices sont auto-hébergées (`assets/fonts/`, licence OFL) : aucun appel à Google Fonts.
-- Numéros de téléphone cliquables (`tel:`).
-- Le widget « Nous suivre sur Instagram @your_instagram_id » (mal configuré sur Wix) n'est pas repris.
-- Extrait de « Demain les chats » (B. Werber) sur la page Références : non recopié (texte protégé),
-  un encadré « À compléter » le remplace.
-
-## À valider avec la cliente
-
-- **Deux e-mails** : harmonie.feval@gmail.com (accueil) et harmonie.elvina@gmail.com (contact, nettoyage).
-  Le formulaire écrit à `CONTACT_DESTINATAIRE` dans `includes/config.php`.
-- **Deux adresses** : « 3 Chemin du Moulin » (accueil) et « Espace du Moulin, 4 B Chemin du Moulin » (contact).
-- **Pages légales vides** sur Wix : mentions légales obligatoires pour un site professionnel,
-  politique de confidentialité nécessaire avec le formulaire de contact.
-- **Pages qui ne sont plus accessibles depuis le menu** : la vue d'ensemble des séances
-  (`/mes-prestations`) et, par ricochet, « Accompagnement énergétique personnalisé », qui n'est
-  reliée que depuis elle. Idem pour les témoignages. Volontaire ?
-
-## Avant la mise en ligne
-
-1. Supprimer le dossier `outils/` (absent de l'archive `harmonie-o2switch.zip`).
-2. `CONTACT_EXPEDITEUR` se calcule tout seul (ne-pas-repondre@domaine-du-site) : rien à modifier.
-3. Si un ancien dossier `assets/img/wix/` traîne sur le serveur ou en local, le supprimer (plus utilisé).
-4. Tester l'envoi du formulaire sur l'hébergement (en local, l'envoi dépend de la configuration mail de Laragon).
-5. Adresse provisoire : le `.htaccess` demande aux moteurs de ne pas indexer le site.
-   **Supprimer ces lignes** au passage sur le nom de domaine définitif.
-
-## Déploiement (GitHub → O2switch)
-
-Chaque push sur `main` envoie le site par FTPS (`.github/workflows/deploiement.yml`, `lftp mirror`).
-`outils/`, `.github/`, `.gitignore` et ce fichier ne sont pas envoyés. Rien n'est supprimé sur le serveur :
-un fichier retiré du dépôt doit aussi être effacé à la main dans cPanel.
-Lancement manuel possible : onglet Actions → « Déploiement O2switch » → « Run workflow ».
-
-- Compte FTP dédié `deploiement@harmonie.suwe0045.odns.fr`, limité au dossier du site (chemin distant `./`).
-- Secrets GitHub : `FTP_SERVEUR` (`barriere.o2switch.net`), `FTP_UTILISATEUR`, `FTP_MOT_DE_PASSE`.
-- Dépôt : <https://github.com/TOM789123/harmonie-elvina>.
-- L'action SamKirkland/FTP-Deploy-Action a été abandonnée : le serveur coupait son canal de données FTPS (ECONNRESET).
+- **Idée** : la lumière qui traverse les arbres (« mettre en lumière », « aller à la racine » dans ses textes).
+  Un faisceau doré et quelques poussières sur l'accueil (seule animation, désactivée si l'utilisateur réduit les animations),
+  l'arbre de vie en filigrane dans le pied de page.
+- **Couleurs** : sous-bois `#1C2A21`, mousse `#3D5743`, fougère `#9DB47F`, lichen `#DFE5D3`, brume `#F1F3EC`, lumière `#EBCB7A`, écorce `#7A5C46`.
+- **Polices** (OFL, auto-hébergées) : Alegreya (titres et textes), Alegreya Sans (menus, boutons, infos pratiques).
+- **Motif** : coins « feuille » (deux coins opposés arrondis) sur les photos, cartes et boutons.
+- **Pictogrammes** dessinés pour le site (lanterne, mains, lotus, spirale, chat, maison-feuille, plume),
+  sprite généré dans `includes/sprite.php` ; les mains et l'arbre de vie sont vectorisés depuis les icônes d'origine.
 
 ## Structure
 
 ```
-includes/   config.php (contacts, menu) · medias.php · fonctions.php · entete.php · menu.php · pied.php
-assets/     css/style.css · js/main.js (menu mobile) · fonts/ · img/
-outils/     recuperer-medias.php (local uniquement)
+index.php                       Accueil
+seances.php                     Guidance, soin énergétique, méditation connectée (+ accompagnement, « je propose aussi »)
+accompagnement-energetique.php  Accompagnement énergétique personnalisé
+animaux.php                     Communication & soins aux animaux
+nettoyage-energetique-lieux.php Nettoyage énergétique de lieux (avec Flori'Âme)
+temoignages.php                 17 témoignages
+references-bibliographiques.php Mes lectures
+contact.php                     Coordonnées + formulaire (jeton, champ piège, délai anti-robots)
+mentions-legales.php, politique-de-confidentialite.php, conditions-generales-de-vente.php  (à compléter)
+includes/  config.php (coordonnées, menu) · donnees.php (séances, témoignages) · fonctions.php
+           entete.php · pied.php · bloc-aussi.php · sprite.php
+assets/    css/style.css · js/site.js · fonts/ · img/ (WebP + JPEG de repli)
+sources/   scripts et fichiers de travail (non publiés)
 ```
 
-## Historique
+`guidance-soin-meditation.php` (ancienne page « Séances ») est remplacée par `seances.php` :
+prévoir une redirection 301 à la mise en ligne.
 
-**25/11/2026** — dépôt GitHub `TOM789123/harmonie-elvina` et déploiement automatique vers O2switch ;
-nom de domaine définitif `harmonie-elvina.fr` (OVH) en cours de rattachement (DNS → O2switch).
+## Textes
 
-**20/11/2026 (soir)** — les 11 médias de la bibliothèque Wix sont remplacés par des ornements SVG
-originaux (`assets/img/deco/`) ; mise en ligne provisoire sur http://harmonie.suwe0045.odns.fr/.
+Textes repris du site actuel. Corrections de fautes de frappe évidentes (à signaler à la cliente) :
 
-**20/11/2026** — page Séances (`guidance-soin-meditation.php`), version mobile reprise du Wix mobile :
-une colonne, icônes de 90 px, tailles de texte propres à chaque séance (18 / 17 / 20 px),
-titre « SOIN ENERGÉTIQUE » accentué **uniquement en mobile** (le Wix bureau affiche toujours « ENERGETIQUE »).
+- Méditation connectée : « Un temps pour de pause » → « Un temps de pause ».
+- Accompagnement : « je vous accompagne votre ce chemin » → « sur ce chemin » ; « état de lieux énergétique » → « état des lieux énergétique » ;
+  « en fonction de se qui » → « de ce qui ».
+- Nettoyage : « disfonctionnements » → « dysfonctionnements » ; « Qui sommes nous ? » → « Qui sommes-nous ? » ; « Qu'est -ce » → « Qu'est-ce ».
+- Contact : « mes coordonnés » → « mes coordonnées ».
+- Lectures : « (Toma 1 et 2) » → « (tomes 1 et 2) » ; « Le 5ème accord toltèques » → « Le cinquième accord toltèque » ; espaces parasites.
+- Pied de page : « Conditions générales de ventes » → « Conditions générales de vente ».
+- Témoignages : non modifiés (citations).
 
-**15/11/2026** — reprise des modifications publiées sur Wix le 11/11/2026 :
-- menu à 6 entrées : « Séances » mène à la page détaillée (guidance / soin / méditation),
-  ajout de « Animaux », « Nettoyage énergétique de lieux » mène à la page interne (et non plus à flori-ame.com) ;
-- barre de menu sur fond #b9b2a8 en haut des pages intérieures ;
-- page Contact : icônes Facebook et Instagram à hauteur du titre ;
-- page Nettoyage : nouveau bloc de contact en deux colonnes (Harmonie / Floriane), avec les icônes
-  Facebook et Instagram de chacune ; les lignes « réseaux sociaux » ont disparu ;
-- lien « COMMUNICATION & SOINS ANIMALIERS » retiré de la vue d'ensemble : la page Animaux est maintenant dans le menu.
+Nouveaux intitulés ajoutés pour structurer les pages (à faire valider) : « Qui suis-je ? », « Les séances »,
+« Je propose aussi », « En pratique », « Durée et tarifs », « À distance, comment ça se passe ? », « Nous contacter »,
+« Prendre rendez-vous », « Mes lectures ».
+La présentation d'Harmonie sur l'accueil reprend sa biographie de la page Nettoyage.
 
-**07/11/2026** — première copie.
+## À valider avec la cliente
+
+- **Coordonnées** : la refonte utilise partout celles de la page Contact (Espace du Moulin, 4 B Chemin du Moulin,
+  harmonie.elvina@gmail.com). Le site actuel affiche aussi « 3 Chemin du Moulin » et harmonie.feval@gmail.com sur l'accueil.
+- **Photos** : celles du site Wix sont en petite taille (1 400 px au plus). Des originaux ou de nouvelles photos de sa forêt
+  rendraient l'accueil plus net sur grand écran (`sources/images.py` régénère toutes les tailles).
+- **Extrait de « Demain les chats »** (page Lectures) : emplacement prévu, texte à reprendre du site actuel.
+- **Pages légales** : vides sur le site actuel ; mentions légales et politique de confidentialité nécessaires.
+
+## Mise en ligne de la refonte (après validation)
+
+1. Fusionner `refonte` dans `main` (le déploiement principal envoie alors la refonte à la racine du site).
+2. Supprimer sur le serveur les fichiers de l'ancienne version devenus inutiles (`guidance-soin-meditation.php`,
+   `includes/medias.php`, `includes/menu.php`, `assets/js/main.js`, anciennes polices et images, `assets/img/deco/`) :
+   l'envoi automatique ne supprime rien.
+3. Retirer le `noindex` du `.htaccess` une fois le domaine définitif branché ; ajouter la redirection
+   `guidance-soin-meditation.php` → `seances.php`.
+4. Supprimer le dossier `maquette/` du serveur.
+
+## Déploiement (rappel)
+
+- Site principal : push sur `main` → racine du sous-domaine (`.github/workflows/deploiement.yml`).
+- Maquette : push sur `refonte` → `maquette/` (`.github/workflows/maquette.yml`).
+- Compte FTP `deploiement@harmonie.suwe0045.odns.fr`, secrets GitHub `FTP_SERVEUR` (`barriere.o2switch.net`),
+  `FTP_UTILISATEUR`, `FTP_MOT_DE_PASSE`.

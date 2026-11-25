@@ -90,7 +90,7 @@ address { font-style: normal; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--mousse); outline-offset: 3px; border-radius: 2px; }
-.sombre :focus-visible { outline-color: var(--lumiere); }
+.sombre :focus-visible, .entete :focus-visible, .pied :focus-visible { outline-color: var(--lumiere); }
 ::selection { background: var(--lumiere); color: var(--sous-bois); }
 b, strong { font-weight: 600; }
 
@@ -185,7 +185,7 @@ b, strong { font-weight: 600; }
   height: var(--entete-h);
 }
 
-.marque { display: inline-flex; align-items: center; gap: .7rem; color: inherit; text-decoration: none; }
+.marque { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: .7rem; color: inherit; text-decoration: none; }
 .marque__arbre {
   width: 2.35rem;
   height: 2.5rem;
@@ -401,9 +401,11 @@ b, strong { font-weight: 600; }
 .hero-page__intro { max-width: 36rem; margin: 1.5rem 0 0; font-size: var(--t-l); line-height: 1.5; color: var(--sur-sombre-doux); }
 .hero-page__parent { margin-bottom: 1.25rem; font-family: var(--sans); font-size: var(--t-s); }
 .hero-page__parent a { color: var(--fougere); text-decoration-color: rgba(157, 180, 127, .4); }
-.hero-page__visuel { justify-self: start; width: min(100%, 22rem); }
+.hero-page__visuel { justify-self: start; width: 100%; max-width: 22rem; }
+.hero-page__photo { aspect-ratio: 4 / 5; border-radius: 11rem .5rem 11rem .5rem; overflow: hidden; }
+.hero-page__photo picture, .hero-page__photo img { width: 100%; height: 100%; object-fit: cover; }
 @media (min-width: 56em) {
-  .hero-page--visuel .hero-page__grille { grid-template-columns: 1fr auto; gap: 4rem; }
+  .hero-page--visuel .hero-page__grille { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: 4rem; }
   .hero-page__visuel { justify-self: end; }
 }
 
@@ -500,6 +502,281 @@ b, strong { font-weight: 600; }
 
 /* Page en préparation (maquette) */
 .en-preparation { max-width: 40rem; font-size: var(--t-l); color: var(--encre-douce); }
+
+/* ==========================================================================
+   Composants des pages intérieures
+   ========================================================================== */
+
+/* Texte courant */
+.prose { max-width: 40rem; }
+.prose h2 { font-size: var(--t-2xl); margin: 0 0 1.25rem; }
+.prose h3 { font-size: var(--t-xl); margin: 2.5rem 0 1rem; }
+.prose * + h2 { margin-top: clamp(3rem, 6vw, 4.5rem); }
+.prose .chapeau { margin-bottom: 1.5rem; }
+.prose--avant-bloc { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.deux-colonnes .prose h2 { font-size: var(--t-xl); }
+.section--serree { padding-block: clamp(3rem, 6vw, 5rem); }
+.apres-liste { margin-top: 1.5rem; }
+
+/* Sommaire de page */
+.sommaire { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: .6rem; list-style: none; margin-top: 2.25rem; }
+.sommaire a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  padding: .45rem 1rem;
+  border: 1px solid var(--trait-sombre);
+  border-radius: 1em .25em;
+  font-family: var(--sans);
+  font-size: var(--t-s);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--sur-sombre);
+  transition: border-color .2s, background-color .2s;
+}
+.sommaire a:hover { border-color: var(--sur-sombre-doux); background: rgba(233, 238, 225, .05); }
+.sommaire .icone { width: 1.5rem; height: 1.5rem; color: var(--lumiere); }
+
+/* Bloc séance détaillé : texte + fiche pratique */
+.bloc-seance { display: grid; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+.bloc-seance + .bloc-seance { margin-top: var(--section); padding-top: var(--section); border-top: 1px solid var(--trait); }
+.bloc-seance__titre { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.5rem; }
+.bloc-seance__titre .icone { width: 4rem; height: 4rem; color: var(--mousse); }
+.bloc-seance__titre h2 { font-size: var(--t-2xl); }
+.bloc-seance__texte { max-width: 38rem; }
+.bloc-seance__texte p { font-size: var(--t-l); line-height: 1.5; }
+@media (min-width: 60em) {
+  .bloc-seance { grid-template-columns: 1.15fr 1fr; }
+  .bloc-seance .fiche { margin-top: 5.5rem; }
+}
+
+/* Fiche « En pratique » */
+.fiche {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--feuille) .375rem;
+  background: var(--lichen);
+  font-family: var(--sans);
+  font-size: var(--t-s);
+  line-height: 1.5;
+}
+.section--lichen .fiche { background: var(--brume); }
+.fiche__titre { margin-bottom: 1.1rem; font-family: var(--sans); font-size: var(--t-s); font-weight: 700; color: var(--mousse); }
+.fiche dl { display: grid; gap: 1rem; margin: 0; }
+.fiche dt { color: var(--encre-douce); }
+.fiche dd { margin: .2rem 0 0; color: var(--encre); }
+.fiche dd p { margin: 0; }
+.fiche dd p + p { margin-top: .5rem; }
+.fiche__notes { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--trait); color: var(--encre-douce); font-size: .9375rem; }
+.fiche__notes p + p { margin-top: .5rem; }
+@media (min-width: 30em) {
+  .fiche dl > div { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; }
+  .fiche dd { margin: 0; }
+}
+
+/* Encart d'ouverture (lien vers une autre page) */
+.ouverture { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.ouverture__visuel { width: 100%; max-width: 20rem; border-radius: 9rem .5rem 9rem .5rem; overflow: hidden; aspect-ratio: 3 / 4; }
+.ouverture__visuel picture, .ouverture__visuel img { width: 100%; height: 100%; object-fit: cover; }
+.ouverture h2 { font-size: var(--t-2xl); margin-bottom: 1.25rem; }
+.ouverture p { font-size: var(--t-l); line-height: 1.5; max-width: 34rem; }
+.ouverture .bouton { margin-top: 1rem; }
+@media (min-width: 52em) {
+  .ouverture { grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); }
+}
+
+/* Étapes (vraie séquence : numérotées) */
+.etapes { list-style: none; counter-reset: etape; display: grid; gap: 0; max-width: 46rem; }
+.etapes > li {
+  position: relative;
+  counter-increment: etape;
+  padding: 0 0 2.25rem 4.25rem;
+}
+.etapes > li::before {
+  content: counter(etape);
+  position: absolute;
+  left: 0;
+  top: -.15rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 1rem .3rem;
+  background: var(--mousse);
+  color: var(--brume);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1.0625rem;
+}
+.etapes > li::after {
+  content: '';
+  position: absolute;
+  left: 1.375rem;
+  top: 2.9rem;
+  bottom: .4rem;
+  width: 1px;
+  background: var(--trait);
+}
+.etapes > li:last-child { padding-bottom: 0; }
+.etapes > li:last-child::after { display: none; }
+.etapes h3 { font-size: var(--t-xl); margin-bottom: .5rem; }
+.etapes p { color: var(--encre-douce); }
+.etapes .infos { margin-top: .9rem; }
+.etapes__pause { margin: -.75rem 0 2.25rem 4.25rem; font-family: var(--sans); font-size: var(--t-s); color: var(--ecorce); font-style: normal; }
+.sombre .etapes > li::before { background: var(--lumiere); color: var(--sous-bois); }
+.sombre .etapes > li::after { background: var(--trait-sombre); }
+.sombre .etapes p { color: var(--sur-sombre-doux); }
+.etapes--compactes > li { padding-bottom: 1.5rem; }
+.etapes--compactes h3 { font-size: var(--t-l); margin: .35rem 0 0; }
+
+/* Liste à puces « feuille » */
+.liste-feuille { list-style: none; display: grid; gap: .7rem; }
+.liste-feuille li { position: relative; padding-left: 1.75rem; }
+.liste-feuille li::before {
+  content: '';
+  position: absolute;
+  left: .15rem;
+  top: .55em;
+  width: .7rem;
+  height: .7rem;
+  border-radius: 0 70% 0 70%;
+  background: var(--fougere);
+  transform: rotate(-8deg);
+}
+.liste-feuille--colonnes { column-gap: 3rem; }
+@media (min-width: 44em) {
+  .liste-feuille--colonnes { display: block; columns: 2; }
+  .liste-feuille--colonnes li { break-inside: avoid; margin-bottom: .7rem; }
+}
+
+.liste-feuille--grande { font-size: var(--t-l); gap: 1rem; }
+.liste-feuille--grande li { margin-bottom: 1rem; }
+.sombre .liste-feuille li::before { background: var(--lumiere); }
+
+/* Méthode + tarif (nettoyage de lieux) */
+.methode { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+.encadre__titre { font-size: var(--t-xl); }
+@media (min-width: 60em) {
+  .methode { grid-template-columns: 1fr minmax(0, 26rem); }
+  .methode .encadre { margin-top: 5.5rem; }
+}
+
+/* Deux colonnes égales */
+.deux-colonnes { display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); }
+@media (min-width: 52em) {
+  .deux-colonnes { grid-template-columns: 1fr 1fr; }
+}
+
+/* Profils (nettoyage de lieux) */
+.profil { padding: clamp(1.75rem, 3.5vw, 2.5rem); border-radius: var(--feuille) .375rem; background: var(--brume); }
+.profil h3 { font-size: var(--t-xl); margin-bottom: .25rem; }
+.profil__role { margin-bottom: 1.25rem; font-family: var(--sans); font-size: var(--t-s); color: var(--mousse); font-weight: 500; }
+.profil p { color: var(--encre-douce); }
+
+/* Encadré mis en avant (tarif, extrait…) */
+.encadre {
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border-radius: var(--feuille) .375rem;
+  background: var(--sous-bois);
+  color: var(--sur-sombre);
+}
+.encadre h2, .encadre h3 { color: #F3F5EE; }
+.encadre p { color: var(--sur-sombre-doux); }
+.tarif-grand { margin: .5rem 0 1rem; font-size: var(--t-2xl); line-height: 1.1; color: var(--lumiere) !important; }
+
+/* Contact à deux (Harmonie / Flori'Âme) */
+.duo-contact { display: grid; gap: 1.5rem; }
+.duo-contact__carte { padding: clamp(1.75rem, 3.5vw, 2.5rem); border-radius: var(--feuille) .375rem; background: var(--lichen); font-family: var(--sans); font-size: var(--t-s); }
+.duo-contact__carte h3 { font-family: var(--serif); font-size: var(--t-xl); margin-bottom: 1.1rem; }
+.duo-contact__carte ul { list-style: none; display: grid; gap: .6rem; }
+.duo-contact__carte li { display: flex; align-items: center; gap: .7rem; }
+.duo-contact__carte .icone { color: var(--mousse); }
+.duo-contact__carte a { text-decoration: none; }
+.duo-contact__carte a:hover { text-decoration: underline; }
+@media (min-width: 52em) {
+  .duo-contact { grid-template-columns: 1fr 1fr; }
+}
+
+/* Logo dans un médaillon clair (en-têtes sombres) */
+.medaillon { display: grid; place-items: center; width: 100%; max-width: 18rem; padding: 2.25rem 3rem 2.75rem; border-radius: 6rem .5rem; background: var(--brume); }
+.medaillon img { width: 100%; height: auto; }
+
+/* Dessin (page animaux) */
+.dessin { margin: 0; width: 100%; max-width: 26rem; }
+.dessin img { border-radius: .375rem; box-shadow: 0 1.5rem 3rem -1.5rem rgba(0, 0, 0, .55); transform: rotate(-1.5deg); }
+.dessin figcaption { margin-top: 1.1rem; font-style: italic; font-size: var(--t-s); color: var(--sur-sombre-doux); text-align: right; }
+
+/* Témoignages (page) */
+.temoignages-mur { columns: 1; column-gap: 1.5rem; }
+.temoignages-mur .temoignage {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--feuille) .375rem;
+  background: var(--lichen);
+}
+.temoignages-mur .temoignage:nth-child(3n + 2) { background: var(--brume); box-shadow: inset 0 0 0 1px var(--trait); }
+.temoignages-mur .temoignage blockquote p { font-size: var(--t-m); line-height: 1.55; }
+@media (min-width: 44em) { .temoignages-mur { columns: 2; } }
+@media (min-width: 72em) { .temoignages-mur { columns: 3; } }
+
+.temoignages-fin { margin-top: clamp(2.5rem, 5vw, 3.5rem); font-size: var(--t-l); color: var(--encre-douce); }
+.temoignages-fin a { color: var(--mousse); }
+
+/* Lectures */
+.lectures { list-style: none; display: grid; gap: 0 3rem; }
+.lectures li { padding: 1.1rem 0; border-top: 1px solid var(--trait); }
+.lectures__auteur { display: block; margin-bottom: .25rem; font-family: var(--sans); font-size: var(--t-s); font-weight: 500; color: var(--mousse); }
+.lectures__titres cite { font-style: italic; }
+@media (min-width: 52em) { .lectures { grid-template-columns: 1fr 1fr; } }
+.a-completer { padding: 1.25rem 1.5rem; border: 1px dashed var(--ecorce); border-radius: var(--feuille) .375rem; font-family: var(--sans); font-size: var(--t-s); color: var(--ecorce); }
+
+/* Contact */
+.contact-grille { display: grid; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+@media (min-width: 60em) { .contact-grille { grid-template-columns: 1fr 1.35fr; } }
+.coordonnees { padding: clamp(1.75rem, 3.5vw, 2.5rem); border-radius: var(--feuille) .375rem; background: var(--lichen); font-family: var(--sans); font-size: var(--t-s); }
+.coordonnees h2 { font-family: var(--serif); font-size: var(--t-xl); margin-bottom: 1.4rem; }
+.coordonnees ul { list-style: none; display: grid; gap: 1.1rem; }
+.coordonnees li { display: flex; gap: .85rem; align-items: flex-start; }
+.coordonnees .icone { color: var(--mousse); margin-top: .15rem; }
+.coordonnees a { text-decoration: none; }
+.coordonnees a:hover { text-decoration: underline; }
+.coordonnees .reseaux { display: flex; margin-top: 1.5rem; }
+.coordonnees .reseaux a { border-color: var(--trait); color: var(--mousse); }
+.coordonnees .reseaux a:hover { border-color: var(--mousse); color: var(--mousse); }
+.coordonnees__fin { margin: 1.75rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--trait); font-family: var(--serif); font-style: italic; font-size: var(--t-m); color: var(--encre-douce); }
+
+/* Formulaire */
+.formulaire h2 { font-size: var(--t-2xl); margin-bottom: 1.75rem; }
+.formulaire__ligne { display: grid; gap: 1.25rem; }
+@media (min-width: 40em) { .formulaire__ligne { grid-template-columns: 1fr 1fr; } }
+.champ { display: grid; gap: .45rem; margin-bottom: 1.25rem; }
+.champ label { font-family: var(--sans); font-size: var(--t-s); font-weight: 500; }
+.champ label span { font-weight: 400; color: var(--encre-douce); }
+.champ input, .champ textarea {
+  width: 100%;
+  min-height: 3.1rem;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(61, 87, 67, .35);
+  border-radius: .9rem .25rem;
+  background: #FBFCF8;
+  color: var(--encre);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.champ textarea { min-height: 10rem; resize: vertical; }
+.champ input:focus, .champ textarea:focus { outline: none; border-color: var(--mousse); box-shadow: 0 0 0 3px rgba(61, 87, 67, .18); }
+.champ-piege { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formulaire__bas { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.formulaire__mention { margin: 0; font-family: var(--sans); font-size: .9375rem; color: var(--encre-douce); }
+.alerte { margin-bottom: 1.75rem; padding: 1rem 1.25rem; border-radius: .9rem .25rem; font-family: var(--sans); font-size: var(--t-s); }
+.alerte ul { margin: .4rem 0 0 1.1rem; }
+.alerte--ok { background: #E3EDD5; color: #2C4A2F; }
+.alerte--erreur { background: #F6E3D8; color: #6E3519; }
+
+/* Pages légales */
+.legale { max-width: 44rem; }
 
 /* ---------- Bandeau rendez-vous ---------- */
 .rdv { padding-block: clamp(4.5rem, 9vw, 7.5rem); overflow: hidden; }

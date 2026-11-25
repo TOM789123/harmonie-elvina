@@ -112,12 +112,35 @@ function lumiere(int $poussieres = 0): string
     return $html . '</div>';
 }
 
+/** Fiche « En pratique » d'une séance : rubriques (chacune une liste de phrases) + notes. */
+function fiche_pratique(array $rubriques, array $notes = [], string $titre = 'En pratique'): string
+{
+    $html = '<aside class="fiche" aria-label="' . e($titre) . '"><p class="fiche__titre">' . e($titre) . '</p><dl>';
+    foreach ($rubriques as $terme => $phrases) {
+        $html .= '<div><dt>' . e($terme) . '</dt><dd>';
+        foreach ((array) $phrases as $phrase) {
+            $html .= '<p>' . e($phrase) . '</p>';
+        }
+        $html .= '</dd></div>';
+    }
+    $html .= '</dl>';
+    if ($notes) {
+        $html .= '<div class="fiche__notes">';
+        foreach ($notes as $note) {
+            $html .= '<p>' . e($note) . '</p>';
+        }
+        $html .= '</div>';
+    }
+    return $html . '</aside>';
+}
+
 /**
  * En-tête sombre des pages intérieures.
  * $visuel : HTML d'une image (photo(), logo…) affichée à droite, facultatif.
  * $parent : ['url' => ..., 'label' => ...] pour un lien de retour vers la page parente, facultatif.
+ * $apres  : HTML ajouté sous l'introduction (sommaire…), facultatif.
  */
-function hero_page(string $titre, string $intro = '', string $visuel = '', array $parent = []): string
+function hero_page(string $titre, string $intro = '', string $visuel = '', array $parent = [], string $apres = ''): string
 {
     $html = '<section class="hero-page sombre grain' . ($visuel !== '' ? ' hero-page--visuel' : '') . '">' . lumiere(0)
           . '<div class="conteneur hero-page__grille"><div class="hero-page__texte">';
@@ -128,7 +151,7 @@ function hero_page(string $titre, string $intro = '', string $visuel = '', array
     if ($intro !== '') {
         $html .= '<p class="hero-page__intro">' . e($intro) . '</p>';
     }
-    $html .= '</div>';
+    $html .= $apres . '</div>';
     if ($visuel !== '') {
         $html .= '<div class="hero-page__visuel">' . $visuel . '</div>';
     }
